@@ -66,9 +66,219 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-148-SortList" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-51-N-Queens" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/05/07/148-SortList/" class="article-date">
+    <a href="/2018/05/08/51-N-Queens/" class="article-date">
+  <time datetime="2018-05-07T16:04:47.000Z" itemprop="datePublished">2018-05-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/08/51-N-Queens/">51. N-Queens</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>Questions</code><br><img src="https://raw.githubusercontent.com/AvaisSherlocked/AvaisSherlocked.github.io/master/51.png" alt="alt text"><br>The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.<br>Given an integer n, return all distinct solutions to the n-queens puzzle.<br>Each solution contains a distinct board configuration of the n-queens’ placement, where ‘Q’ and ‘.’ both indicate a queen and an empty space respectively.<br>e.g.1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Input: 4</span><br><span class="line">Output: [</span><br><span class="line">[&quot;.Q..&quot;,  // Solution 1</span><br><span class="line">&quot;...Q&quot;,</span><br><span class="line">&quot;Q...&quot;,</span><br><span class="line">&quot;..Q.&quot;],</span><br><span class="line"></span><br><span class="line">[&quot;..Q.&quot;,  // Solution 2</span><br><span class="line">&quot;Q...&quot;,</span><br><span class="line">&quot;...Q&quot;,</span><br><span class="line">&quot;.Q..&quot;]</span><br><span class="line">]</span><br><span class="line">Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.</span><br></pre></td></tr></table></figure></p>
+<p><code>Solution &amp; explaination</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; solveNQueens(<span class="keyword">int</span> n) &#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; V(n,<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">int</span> curRow = <span class="number">0</span>;</span><br><span class="line">    solve(res, V, curRow, n);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; &amp;res, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;V, <span class="keyword">int</span> curRow, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123; <span class="comment">// the first loop in row</span></span><br><span class="line">        V[curRow] = i;</span><br><span class="line">        <span class="keyword">bool</span> nocrash = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;curRow;j++)&#123; <span class="comment">//check with former positions</span></span><br><span class="line">            <span class="keyword">if</span>(V[j] == i || <span class="built_in">abs</span>(V[j]-V[curRow]) == <span class="built_in">abs</span>(j-curRow))  <span class="comment">//remember the positive, negative situation</span></span><br><span class="line">                nocrash = <span class="literal">false</span>; <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(curRow == n<span class="number">-1</span> &amp;&amp; nocrash)&#123;</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v (n,<span class="built_in">string</span>(n,<span class="string">'.'</span>));</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">                v[i][V[i]]=<span class="string">'Q'</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(v);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(nocrash == <span class="literal">true</span>)</span><br><span class="line">        solve(res,V,curRow+<span class="number">1</span>,n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>For every row in board, judge when set its one col as Q, if there are any crash existing before this row.</li>
+<li>To make it more clear and efficient, use vector<int>V, to store the j-th n-th col in row. e.g. V[Row] = j.</int></li>
+<li>After judging rows one by one, when row comes to n, one solution is reached and push back into vector&lt;vector<string>&gt; res.</string></li>
+</ol>
+<p>Explainations in detail:<br>in the main function, input the  parameters for void function “solve”. curRow means current row, starts from 0.<br>solve() function has three parts:</p>
+<ol>
+<li><p>check each row before current row if the position has crash, in order to find the right sequence.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123; <span class="comment">// the first loop in row</span></span><br><span class="line">    V[curRow] = i;</span><br><span class="line">    <span class="keyword">bool</span> nocrash = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;curRow;j++)&#123; <span class="comment">//check with former positions</span></span><br><span class="line">        <span class="keyword">if</span>(V[j] == i || <span class="built_in">abs</span>(V[j]-V[curRow]) == <span class="built_in">abs</span>(j-curRow))  <span class="comment">//remember the positive, negative situation</span></span><br><span class="line">        nocrash = <span class="literal">false</span>; <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ···</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>when curRow comes to end, one solution is found and is pushed back. Learn to use “vector<string> v(n,string(n,’.’))” this method of initialization.</string></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(curRow == n<span class="number">-1</span> &amp;&amp; nocrash)&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; v (n,<span class="built_in">string</span>(n,<span class="string">'.'</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        v[i][V[i]]=<span class="string">'Q'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    res.push_back(v);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To judge next row.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">else</span> <span class="keyword">if</span>(nocrash == <span class="literal">true</span>)</span><br><span class="line">    solve(res,V,curRow+<span class="number">1</span>,n);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><code>Time Complexity: O(n^2)</code><br><code>Space Complexity: O(n^2)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/08/51-N-Queens/" data-id="cjgw00eaq0007sjn20d8eqm50" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BackTracking/">BackTracking</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-215-Kth-Largest-Element-in-an-Array" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/07/215-Kth-Largest-Element-in-an-Array/" class="article-date">
+  <time datetime="2018-05-07T15:45:21.000Z" itemprop="datePublished">2018-05-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/07/215-Kth-Largest-Element-in-an-Array/">215. Kth Largest Element in an Array</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>question</code><br>Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.<br>e.g.1<br><code>Input: [3,2,1,5,6,4] and k = 2</code><br><code>Output: 5</code><br>e.g.2<br><code>Input: [3,2,3,1,2,4,5,5,6] and k = 4</code><br><code>Output: 4</code><br><code>Solution</code><br>Use quick sort or min heap sort would be efficiency.<br><code>Attentions for Quick Sort:</code></p>
+<ol>
+<li>Don’t forget the juding conditions: “while(i&lt;j)” and also “nums[j]&gt;=val &amp;&amp; i&lt;j” the &amp;&amp; i&lt;j is easy to be forgotten.</li>
+<li>Don’t forget to run the while loop for j first(if you choose the left first num as the base num). Because the right part is less than left part, so if i goes first, it may stop at a num smaller than the base number, and swap. e.g. [2,3,3,3,1,1,1]</li>
+<li>The recursion part, the two index should be [left,i-1] and [i+1,right].<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> QuickSort(nums,<span class="number">0</span>,nums.size()<span class="number">-1</span>,nums.size()-k);</span><br><span class="line">        <span class="comment">//Quicksort is min first, so it's nums.size()-k</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">QuickSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> left, <span class="keyword">int</span> right, <span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> val = nums[left];  <span class="comment">//i:begin, j:end</span></span><br><span class="line">        <span class="keyword">if</span>(left == right) <span class="keyword">return</span> val;</span><br><span class="line">        <span class="keyword">int</span> i = left;</span><br><span class="line">        <span class="keyword">int</span> j = right;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">            <span class="comment">// it's very very important to let j go first. And also don't forget the '&amp;&amp; i&lt;j'</span></span><br><span class="line">            <span class="keyword">while</span>(nums[j]&gt;=val &amp;&amp; i&lt;j) j--;</span><br><span class="line">            <span class="keyword">while</span>(nums[i]&lt;=val &amp;&amp; i&lt;j) i++;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;=j) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">int</span> tmp = nums[i]; nums[i] = nums[j]; nums[j] = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">        nums[left] = nums[j];</span><br><span class="line">        nums [j] = val;</span><br><span class="line">        <span class="keyword">if</span>(k == i) <span class="keyword">return</span> nums[i];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(k &lt; i) <span class="keyword">return</span> QuickSort(nums,left,i<span class="number">-1</span>,k); <span class="comment">// i-1</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> QuickSort(nums,i+<span class="number">1</span>,right,k); <span class="comment">//i+1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/07/215-Kth-Largest-Element-in-an-Array/" data-id="cjgw00ean0005sjn2hecpa99p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-35-Search-In-Insertion-Position" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/07/35-Search-In-Insertion-Position/" class="article-date">
+  <time datetime="2018-05-07T15:33:23.000Z" itemprop="datePublished">2018-05-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/07/35-Search-In-Insertion-Position/">35. Search In Insertion Position</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>Question</code><br>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.<br>You may assume no duplicates in the array.<br>e.g.1<br><code>Input: [1,3,5,6], 5</code><br><code>Output: 2</code><br>e.g.2<br><code>Input: [1,3,5,6], 2</code><br><code>Output: 1</code><br>e.g.3<br><code>Input: [1,3,5,6], 7</code><br><code>Output: 4</code><br>e.g.4<br><code>Input: [1,3,5,6], 0</code><br><code>Output: 0</code></p>
+<p><code>solution</code></p>
+<ol>
+<li>Binary search should be at first consideration for sorted array.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">searchInsert</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.empty()||target&lt;nums[<span class="number">0</span>]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(target&gt;nums[nums.size()<span class="number">-1</span>]) <span class="keyword">return</span> nums.size();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> first=<span class="number">0</span>,second=nums.size()<span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">int</span> mid = first+second &gt;&gt;<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(first&lt;=second)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]==target) <span class="keyword">return</span> mid;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]&lt;target) first = mid+<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]&gt;target) second = mid<span class="number">-1</span>;</span><br><span class="line">            mid = first+second &gt;&gt;<span class="number">1</span>; <span class="comment">// cool~ bit operation, &gt;&gt;1 means move right 1 bit./ Euqals to divide by 2</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> first;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Here the bit operation is a nice work. “&gt;&gt;”means move rightward for 1 bit. It’s equal to divide by 2.<br><code>Time Complex: O(nlogn)</code><br><code>Space Complex: O(nlogn)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/07/35-Search-In-Insertion-Position/" data-id="cjgw00eao0006sjn23m1a15k4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Search/">Search</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-100-Same Tree" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/07/100-Same Tree/" class="article-date">
+  <time datetime="2018-05-07T14:54:43.000Z" itemprop="datePublished">2018-05-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/07/100-Same Tree/">100.Same Tree</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>Questions</code><br>Given two binary trees, write a function to check if they are the same or not.<br>Two binary trees are considered the same if they are structurally identical and the nodes have the same value.<br>e.g.1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:    1          1</span><br><span class="line">         / \        / \</span><br><span class="line">        2   3      2   3</span><br><span class="line">       [1,2,3]     [1,2,3]</span><br><span class="line">Output: true</span><br></pre></td></tr></table></figure></p>
+<p>e.g.2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:         1         1</span><br><span class="line">              /           \</span><br><span class="line">             2             2</span><br><span class="line">           [1,2]      [1,null,2]</span><br><span class="line">Output: false</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Definition for a binary tree node.</span></span><br><span class="line"><span class="comment">* struct TreeNode &#123;</span></span><br><span class="line"><span class="comment">*     int val;</span></span><br><span class="line"><span class="comment">*     TreeNode *left;</span></span><br><span class="line"><span class="comment">*     TreeNode *right;</span></span><br><span class="line"><span class="comment">*     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment">* &#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isSameTree</span><span class="params">(TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>Solution</code><br>Do it recursively</p>
+<ol>
+<li>Recursive body–comparing the nodes in two trees</li>
+<li>Return conditions– i.when comes to the leaf (both or only one of two);  ii.when the node values differ<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isSameTree</span><span class="params">(TreeNode* p, TreeNode* q)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">nullptr</span> &amp;&amp; q==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">nullptr</span> || q==<span class="literal">nullptr</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;val != q-&gt;val) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">bool</span> Left = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">bool</span> Right = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;left || q-&gt;left)  <span class="comment">// incase that p only has left and q only has right</span></span><br><span class="line">        Left = isSameTree(p-&gt;left,q-&gt;left);</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;right || q-&gt;right)</span><br><span class="line">        Right = isSameTree(p-&gt;right,q-&gt;right);</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span>(Left &amp;&amp; Right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><code>Time Complexity: O(nlogn)</code><br><code>Space Complexity: O(nlogn)</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/07/100-Same Tree/" data-id="cjgw00eag0000sjn2sipwxdbd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/">Recursion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/">Tree</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-148-Sort List" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/07/148-Sort List/" class="article-date">
   <time datetime="2018-05-07T11:18:19.000Z" itemprop="datePublished">2018-05-07</time>
 </a>
     
@@ -84,7 +294,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/07/148-SortList/">148-SortList</a>
+      <a class="article-title" href="/2018/05/07/148-Sort List/">148.Sort List</a>
     </h1>
   
 
@@ -92,29 +302,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>questions<br><code>Sort a linked list in O(n log n) time using constant space complexity.</code><br>e.g.1<br>Input: 4-&gt;2-&gt;1-&gt;3<br>Output: 1-&gt;2-&gt;3-&gt;4</p>
-<p>e.g.2<br>Input: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>Output: -1-&gt;0-&gt;3-&gt;4-&gt;5</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* Definition for singly-linked list.</span><br><span class="line">* struct ListNode &#123;</span><br><span class="line">*     int val;</span><br><span class="line">*     ListNode *next;</span><br><span class="line">*     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line">* &#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">ListNode* sortList(ListNode* head) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>Requirement: Sort a linked list in O(n log n) time using constant space complexity.<br>Solution:</p>
+        <p><code>Questions</code><br>Sort a linked list in O(n log n) time using constant space complexity.<br>e.g.1<br>Input: 4-&gt;2-&gt;1-&gt;3<br>Output: 1-&gt;2-&gt;3-&gt;4<br>e.g.2<br>Input: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>Output: -1-&gt;0-&gt;3-&gt;4-&gt;5<br>Requirement: Sort a linked list in O(n log n) time using constant space complexity.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* Definition for singly-linked list.</span><br><span class="line">* struct ListNode &#123;</span><br><span class="line">*     int val;</span><br><span class="line">*     ListNode *next;</span><br><span class="line">*     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line">* &#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public:</span><br><span class="line">    ListNode* sortList(ListNode* head) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><code>Solution:</code></p>
 <ol>
-<li>Find the middle of list and to separate the list into two parts (Recursion).</li>
+<li>Find the middle of list and to separate the list into two parts in recursive way.</li>
 <li>Compare the two part of lists and merge them together, while use recursion, these two parts of lists should have been sorted.</li>
 </ol>
-<p>These two steps are implemented by two functions<br>The first is sortList(ListNode* head), which is used to seperate the list in ‘two’ parts，acutually it’s every node</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(head==<span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line"><span class="comment">// part 1: to sortList in binary tree order</span></span><br><span class="line">ListNode* slow = head;</span><br><span class="line">ListNode* fast = head-&gt;next; <span class="comment">//it's important to set the faster in the next position, to avoid the single val list</span></span><br><span class="line"><span class="keyword">while</span>(fast != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">slow = slow-&gt;next;</span><br><span class="line">fast = fast-&gt;next-&gt;next;</span><br><span class="line">&#125;</span><br><span class="line">fast = slow-&gt;next;   <span class="comment">//fast is the latter part of list</span></span><br><span class="line">slow-&gt;next = <span class="literal">nullptr</span>;  <span class="comment">//to cut down the latter part for head</span></span><br><span class="line"><span class="keyword">return</span> MergeList(sortList(head),sortList(fast));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>The second function is MergeList(ListNode<em> l1, ListNode</em> l2), in order to merge two input lists according to the val.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// part 2: merge the input 2 lists</span></span><br><span class="line">   <span class="function">ListNode* <span class="title">MergeList</span><span class="params">(ListNode* l1,ListNode* l2)</span></span>&#123;</span><br><span class="line">   ListNode* cur = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">   ListNode* pcur = cur;</span><br><span class="line">   <span class="keyword">while</span>(l1 != <span class="literal">nullptr</span> &amp;&amp; l2 != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">   <span class="keyword">if</span>(l1-&gt;val &lt; l2-&gt;val)&#123;</span><br><span class="line">   cur-&gt;next =l1;</span><br><span class="line">   l1 = l1-&gt;next ;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span>&#123;</span><br><span class="line">   cur-&gt;next =l2;</span><br><span class="line">   l2 = l2-&gt;next ;</span><br><span class="line">   &#125;</span><br><span class="line">   cur= cur-&gt;next;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span>(l1 != <span class="literal">nullptr</span>)</span><br><span class="line">   cur-&gt;next = l1;</span><br><span class="line">   <span class="keyword">if</span>(l2 != <span class="literal">nullptr</span>)</span><br><span class="line">   cur-&gt;next = l2;</span><br><span class="line">   <span class="keyword">return</span> pcur-&gt;next;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>Things to be learned</p>
+<p>These two steps are implemented by two functions:<br>The first is sortList(ListNode* head), which is used to seperate the list in ‘two’ parts，acutually it’s every node.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// part 1: to sortList in binary tree order</span></span><br><span class="line">        ListNode* slow = head;</span><br><span class="line">        ListNode* fast = head-&gt;next; <span class="comment">//it's important to set the faster in the next position, to avoid the single val list</span></span><br><span class="line">        <span class="keyword">while</span>(fast != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        fast = slow-&gt;next;   <span class="comment">//fast is the latter part of list</span></span><br><span class="line">        slow-&gt;next = <span class="literal">nullptr</span>;  <span class="comment">//to cut down the latter part for head</span></span><br><span class="line">        <span class="keyword">return</span> MergeList(sortList(head),sortList(fast)); <span class="comment">// very smart, to divide the list "binarily"</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>The second function is MergeList(ListNode<em> l1, ListNode</em> l2), in order to merge two input lists according to the val.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// part 2: merge the input 2 lists</span></span><br><span class="line">    <span class="function">ListNode* <span class="title">MergeList</span><span class="params">(ListNode* l1,ListNode* l2)</span></span>&#123;</span><br><span class="line">        ListNode* cur = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode* pcur = cur;</span><br><span class="line">        <span class="keyword">while</span>(l1 != <span class="literal">nullptr</span> &amp;&amp; l2 != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(l1-&gt;val &lt; l2-&gt;val)&#123;</span><br><span class="line">                cur-&gt;next =l1;</span><br><span class="line">                l1 = l1-&gt;next ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                cur-&gt;next =l2;</span><br><span class="line">                l2 = l2-&gt;next ;</span><br><span class="line">            &#125;</span><br><span class="line">            cur= cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l1 != <span class="literal">nullptr</span>)</span><br><span class="line">        cur-&gt;next = l1;</span><br><span class="line">        <span class="keyword">if</span>(l2 != <span class="literal">nullptr</span>)</span><br><span class="line">        cur-&gt;next = l2;</span><br><span class="line">        <span class="keyword">return</span> pcur-&gt;next;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>conclusion</code><br>Things to be learned：</p>
 <ol>
 <li>Use fast (jump by 2) and slow (jump by 1) two pointers to find the middle of list.</li>
-<li>Use recursion to merge nodes from only two to the whole half part of the list.</li>
+<li>Use recursion to merge nodes from only two to the whole half part of the list.<br><code>Time Complex: O(nlogn)</code><br><code>Space Complex: O(1)</code></li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/07/148-SortList/" data-id="cjgvpp57p000272n21abifsh6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/07/148-Sort List/" data-id="cjgw00eak0002sjn2xrnce9bn" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/">Recursion</a></li></ul>
+
     </footer>
   </div>
   
@@ -149,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/06/说明/" data-id="cjgvpp57m000072n2eblm6oky" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/06/说明/" data-id="cjgw00eat000bsjn23wnctihs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/06/hello-world/" data-id="cjgvpp57r000372n2fvlo22qe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/06/hello-world/" data-id="cjgw00eas000asjn2rau9u178" class="article-share-link">Share</a>
       
       
     </footer>
@@ -221,9 +431,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BackTracking/">BackTracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BackTracking/" style="font-size: 10px;">BackTracking</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/Recursion/" style="font-size: 20px;">Recursion</a> <a href="/tags/Search/" style="font-size: 10px;">Search</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -242,15 +466,23 @@
       <ul>
         
           <li>
-            <a href="/2018/05/07/148-SortList/">148-SortList</a>
+            <a href="/2018/05/08/51-N-Queens/">51. N-Queens</a>
           </li>
         
           <li>
-            <a href="/2018/05/06/说明/">说明</a>
+            <a href="/2018/05/07/215-Kth-Largest-Element-in-an-Array/">215. Kth Largest Element in an Array</a>
           </li>
         
           <li>
-            <a href="/2018/05/06/hello-world/">Hello World</a>
+            <a href="/2018/05/07/35-Search-In-Insertion-Position/">35. Search In Insertion Position</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/07/100-Same Tree/">100.Same Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/07/148-Sort List/">148.Sort List</a>
           </li>
         
       </ul>

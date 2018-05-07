@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>148.Sort List | Welcome to Ava&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="QuestionsSort a linked list in O(n log n) time using constant space complexity.e.g.1Input: 4-&amp;gt;2-&amp;gt;1-&amp;gt;3Output: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4e.g.2Input: -1-&amp;gt;5-&amp;gt;3-&amp;gt;4-&amp;gt;0Output: -1-&amp;gt;0-&amp;gt;3-&amp;g">
+<meta name="keywords" content="Recursion,Linked List">
+<meta property="og:type" content="article">
+<meta property="og:title" content="148.Sort List">
+<meta property="og:url" content="http://yoursite.com/2018/05/07/148-Sort List/index.html">
+<meta property="og:site_name" content="Welcome to Ava&#39;s blog">
+<meta property="og:description" content="QuestionsSort a linked list in O(n log n) time using constant space complexity.e.g.1Input: 4-&amp;gt;2-&amp;gt;1-&amp;gt;3Output: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4e.g.2Input: -1-&amp;gt;5-&amp;gt;3-&amp;gt;4-&amp;gt;0Output: -1-&amp;gt;0-&amp;gt;3-&amp;g">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-07T07:31:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="148.Sort List">
+<meta name="twitter:description" content="QuestionsSort a linked list in O(n log n) time using constant space complexity.e.g.1Input: 4-&amp;gt;2-&amp;gt;1-&amp;gt;3Output: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4e.g.2Input: -1-&amp;gt;5-&amp;gt;3-&amp;gt;4-&amp;gt;0Output: -1-&amp;gt;0-&amp;gt;3-&amp;g">
+  
+    <link rel="alternate" href="/atom.xml" title="Welcome to Ava&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Welcome to Ava&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Happy coding everyday!</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-148-Sort List" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/07/148-Sort List/" class="article-date">
+  <time datetime="2018-05-07T11:18:19.000Z" itemprop="datePublished">2018-05-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      148.Sort List
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>Questions</code><br>Sort a linked list in O(n log n) time using constant space complexity.<br>e.g.1<br>Input: 4-&gt;2-&gt;1-&gt;3<br>Output: 1-&gt;2-&gt;3-&gt;4<br>e.g.2<br>Input: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>Output: -1-&gt;0-&gt;3-&gt;4-&gt;5<br>Requirement: Sort a linked list in O(n log n) time using constant space complexity.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">* Definition for singly-linked list.</span><br><span class="line">* struct ListNode &#123;</span><br><span class="line">*     int val;</span><br><span class="line">*     ListNode *next;</span><br><span class="line">*     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line">* &#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">    public:</span><br><span class="line">    ListNode* sortList(ListNode* head) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><code>Solution:</code></p>
+<ol>
+<li>Find the middle of list and to separate the list into two parts in recursive way.</li>
+<li>Compare the two part of lists and merge them together, while use recursion, these two parts of lists should have been sorted.</li>
+</ol>
+<p>These two steps are implemented by two functions:<br>The first is sortList(ListNode* head), which is used to seperate the list in ‘two’ parts，acutually it’s every node.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">sortList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="literal">nullptr</span> || head-&gt;next == <span class="literal">nullptr</span>) <span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// part 1: to sortList in binary tree order</span></span><br><span class="line">        ListNode* slow = head;</span><br><span class="line">        ListNode* fast = head-&gt;next; <span class="comment">//it's important to set the faster in the next position, to avoid the single val list</span></span><br><span class="line">        <span class="keyword">while</span>(fast != <span class="literal">nullptr</span> &amp;&amp; fast-&gt;next != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">            fast = fast-&gt;next-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        fast = slow-&gt;next;   <span class="comment">//fast is the latter part of list</span></span><br><span class="line">        slow-&gt;next = <span class="literal">nullptr</span>;  <span class="comment">//to cut down the latter part for head</span></span><br><span class="line">        <span class="keyword">return</span> MergeList(sortList(head),sortList(fast)); <span class="comment">// very smart, to divide the list "binarily"</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>The second function is MergeList(ListNode<em> l1, ListNode</em> l2), in order to merge two input lists according to the val.<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// part 2: merge the input 2 lists</span></span><br><span class="line">    <span class="function">ListNode* <span class="title">MergeList</span><span class="params">(ListNode* l1,ListNode* l2)</span></span>&#123;</span><br><span class="line">        ListNode* cur = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode* pcur = cur;</span><br><span class="line">        <span class="keyword">while</span>(l1 != <span class="literal">nullptr</span> &amp;&amp; l2 != <span class="literal">nullptr</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(l1-&gt;val &lt; l2-&gt;val)&#123;</span><br><span class="line">                cur-&gt;next =l1;</span><br><span class="line">                l1 = l1-&gt;next ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                cur-&gt;next =l2;</span><br><span class="line">                l2 = l2-&gt;next ;</span><br><span class="line">            &#125;</span><br><span class="line">            cur= cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l1 != <span class="literal">nullptr</span>)</span><br><span class="line">        cur-&gt;next = l1;</span><br><span class="line">        <span class="keyword">if</span>(l2 != <span class="literal">nullptr</span>)</span><br><span class="line">        cur-&gt;next = l2;</span><br><span class="line">        <span class="keyword">return</span> pcur-&gt;next;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>conclusion</code><br>Things to be learned：</p>
+<ol>
+<li>Use fast (jump by 2) and slow (jump by 1) two pointers to find the middle of list.</li>
+<li>Use recursion to merge nodes from only two to the whole half part of the list.<br><code>Time Complex: O(nlogn)</code><br><code>Space Complex: O(1)</code></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/07/148-Sort List/" data-id="cjgw00eak0002sjn2xrnce9bn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/">Recursion</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/07/100-Same Tree/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          100.Same Tree
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/06/说明/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">说明</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BackTracking/">BackTracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BackTracking/" style="font-size: 10px;">BackTracking</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/Recursion/" style="font-size: 20px;">Recursion</a> <a href="/tags/Search/" style="font-size: 10px;">Search</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/05/08/51-N-Queens/">51. N-Queens</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/07/215-Kth-Largest-Element-in-an-Array/">215. Kth Largest Element in an Array</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/07/35-Search-In-Insertion-Position/">35. Search In Insertion Position</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/07/100-Same Tree/">100.Same Tree</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/07/148-Sort List/">148.Sort List</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Ava_夏持之<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
