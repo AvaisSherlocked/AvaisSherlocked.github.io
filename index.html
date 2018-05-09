@@ -66,6 +66,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-69-sqrt-x" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/10/69-sqrt-x/" class="article-date">
+  <time datetime="2018-05-10T00:37:14.000Z" itemprop="datePublished">2018-05-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/10/69-sqrt-x/">69.sqrt(x)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>questions:</code><br>Implement int sqrt(int x).<br>Compute and return the square root of x, where x is guaranteed to be a non-negative integer.<br>Since the return type is an integer, the decimal digits are truncated and only the integer part of the result is returned.</p>
+<p>e.g.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: 4</span><br><span class="line">Output: 2</span><br><span class="line">Input: 8</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure></p>
+<p>Solution 1:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> s=x/<span class="number">10</span>;</span><br><span class="line">    <span class="keyword">while</span>(s*s &gt; x)</span><br><span class="line">    s = s/<span class="number">10</span>;</span><br><span class="line">    <span class="keyword">if</span>(s*s == x) <span class="keyword">return</span> s;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">long</span> l=s;</span><br><span class="line">        <span class="keyword">long</span> r=s*<span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span>(r==<span class="number">0</span>) r=<span class="number">10</span>;</span><br><span class="line">        s=(s+r)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">while</span>(!(s*s&lt;=x &amp;&amp; (s+<span class="number">1</span>)*(s+<span class="number">1</span>)&gt;=x))&#123;</span><br><span class="line">            <span class="keyword">if</span>(s*s &lt; x)&#123;</span><br><span class="line">                l = s;</span><br><span class="line">                s = (l+r)/<span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(s*s &gt; x)&#123;</span><br><span class="line">                r = s;</span><br><span class="line">                s = (l+r)/<span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>((s+<span class="number">1</span>)*(s+<span class="number">1</span>)==x) <span class="keyword">return</span> s+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>First use /10 then use middle value to approaching the target value.<br>However, it’s slower and looks more complicated than following codes:<br>solution 2:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mySqrt</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> r = x;</span><br><span class="line">    <span class="keyword">long</span> a = x;</span><br><span class="line">    <span class="keyword">while</span>(r * r &gt; a) &#123;</span><br><span class="line">        r = (r + a / r) / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>explaination</code><br>This <code>r = (r + a / r) / 2</code> can work out is because it shrink according to the r you use. Suppose r^2 &gt; a, then r &gt; a/r must be true. Use the middle value of r and a/r would approach the right value step by step.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/10/69-sqrt-x/" data-id="cjgzc783i0000fen2kix17wov" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Search/">Search</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-51-N-Queens" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/05/08/51-N-Queens/" class="article-date">
@@ -116,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/08/51-N-Queens/" data-id="cjgzc1mct0008dan2swkcgp6u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/08/51-N-Queens/" data-id="cjgzc33xf0006e7n2g0bvb1kj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BackTracking/">BackTracking</a></li></ul>
@@ -165,7 +212,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/07/215-Kth-Largest-Element-in-an-Array/" data-id="cjgzc1mcq0006dan2xj3zvif3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/07/215-Kth-Largest-Element-in-an-Array/" data-id="cjgzc33xc0004e7n2iceyix0e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -212,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/07/35-Search-In-Insertion-Position/" data-id="cjgzc1mcr0007dan24jxvx9iy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/07/35-Search-In-Insertion-Position/" data-id="cjgzc33xe0005e7n235c49u6s" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Search/">Search</a></li></ul>
@@ -264,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/07/100-Same Tree/" data-id="cjgzc1mce0000dan21ie9d4b1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/07/100-Same Tree/" data-id="cjgzc33x30000e7n2jk08vsfv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/">Recursion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/">Tree</a></li></ul>
@@ -320,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/07/148-Sort List/" data-id="cjgzc1mcl0002dan29w8l3ebc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/07/148-Sort List/" data-id="cjgzc33x90001e7n2bgjzovuz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recursion/">Recursion</a></li></ul>
@@ -359,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/06/说明/" data-id="cjgzc1mcx000cdan2nhtlit02" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/06/说明/" data-id="cjgzc33xj000ae7n2l7c4l5w9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -404,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/06/hello-world/" data-id="cjgzc1mcw000bdan22z8g291p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/06/hello-world/" data-id="cjgzc33xh0009e7n2dar9hqxi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -444,7 +491,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/BackTracking/" style="font-size: 10px;">BackTracking</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/Recursion/" style="font-size: 20px;">Recursion</a> <a href="/tags/Search/" style="font-size: 10px;">Search</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a>
+      <a href="/tags/BackTracking/" style="font-size: 10px;">BackTracking</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/Recursion/" style="font-size: 20px;">Recursion</a> <a href="/tags/Search/" style="font-size: 20px;">Search</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a>
     </div>
   </div>
 
@@ -466,6 +513,10 @@
       <ul>
         
           <li>
+            <a href="/2018/05/10/69-sqrt-x/">69.sqrt(x)</a>
+          </li>
+        
+          <li>
             <a href="/2018/05/08/51-N-Queens/">51. N-Queens</a>
           </li>
         
@@ -479,10 +530,6 @@
         
           <li>
             <a href="/2018/05/07/100-Same Tree/">100.Same Tree</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/07/148-Sort List/">148.Sort List</a>
           </li>
         
       </ul>
