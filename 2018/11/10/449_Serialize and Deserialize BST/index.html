@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>449. Serialize and Deserialize BST | Welcome to Ava&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="questionDesign an algorithm to serialize and deserialize a binary search tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="449. Serialize and Deserialize BST">
+<meta property="og:url" content="http://yoursite.com/2018/11/10/449_Serialize and Deserialize BST/index.html">
+<meta property="og:site_name" content="Welcome to Ava&#39;s blog">
+<meta property="og:description" content="questionDesign an algorithm to serialize and deserialize a binary search tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a b">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-10T16:41:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="449. Serialize and Deserialize BST">
+<meta name="twitter:description" content="questionDesign an algorithm to serialize and deserialize a binary search tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a b">
+  
+    <link rel="alternate" href="/atom.xml" title="Welcome to Ava&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Welcome to Ava&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Happy coding everyday!</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-449_Serialize and Deserialize BST" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/10/449_Serialize and Deserialize BST/" class="article-date">
+  <time datetime="2018-11-10T10:19:00.000Z" itemprop="datePublished">2018-11-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      449. Serialize and Deserialize BST
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>question</code><br>Design an algorithm to serialize and deserialize a binary search tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary search tree can be serialized to a string and this string can be deserialized to the original tree structure.<br>e.g.1<br><code>Input tree:</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    1</span><br><span class="line">   / \</span><br><span class="line">Null  2</span><br></pre></td></tr></table></figure></p>
+<p><code>you serialize it by any method into a string, and deserialize the string back to the tree.</code><br><code>Attentions for serialization:</code></p>
+<ol>
+<li>Don’t forget to use one sign such as ‘NULL’ to help position the greater number is the root or the right child.</li>
+<li>Use another sign string like “ “ to separate the value.</li>
+<li>Choose one order of traversing tree, like Inorder Traversal.<br><code>Attentions for deserialization:</code></li>
+<li>Transfer the string to a string vector by isstringstream.</li>
+<li>According to the method of serialization, determine the order of get the value of string vector.<br>Like Inorder Traversal, the first number of vector is the value of root. The rest value in the vector, the first half(generally half) part is less than mid value, denote the value of root’s left child tree.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">(<span class="built_in">string</span> &amp;s, TreeNode* root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(root==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        s += <span class="string">"NULL "</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> v_m = root-&gt;val;</span><br><span class="line">    s += to_string(v_m) + <span class="string">" "</span>;</span><br><span class="line">    <span class="keyword">if</span>(root-&gt;left == <span class="literal">NULL</span> &amp;&amp; root-&gt;right == <span class="literal">NULL</span>) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    helper(s, root-&gt;left);</span><br><span class="line">    helper(s, root-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Encodes a tree to a single string.</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">serialize</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">NULL</span>) <span class="keyword">return</span> s;</span><br><span class="line">    helper(s,root);</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Use helper function to recursively traverse the tree and add to string s. Note that the helper is a void function.<br><code>Conclusion for solvement:</code></p>
+<ol>
+<li>‘Null tree’ judgement at very beginning.</li>
+<li>Add the root value to string and a “ “ seperating sign.</li>
+<li>Judgement of leaf, after the value assignment.</li>
+<li>recursively doing above operation.<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">TreeNode* <span class="title">helper_de</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(num.size()==<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">if</span>(num[<span class="number">0</span>] == <span class="string">"NULL"</span>)&#123;</span><br><span class="line">            num.erase(num.begin());</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//first element is the root node</span></span><br><span class="line">        <span class="keyword">int</span> m = stoi(num[<span class="number">0</span>]);</span><br><span class="line">        TreeNode* root = <span class="keyword">new</span> TreeNode(m);</span><br><span class="line">        <span class="comment">//return after add this node</span></span><br><span class="line">        <span class="keyword">if</span>(num.size()==<span class="number">1</span>) <span class="keyword">return</span> root;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(;i&lt;num.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(num[i] == <span class="string">"NULL"</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(stoi(num[i]) &gt; m) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        num.erase(num.begin());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; L(num.begin(),num.begin()+i<span class="number">-1</span>);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; R(num.begin()+i<span class="number">-1</span>,num.end());</span><br><span class="line">        root-&gt;left = helper_de(L);</span><br><span class="line">        root-&gt;right = helper_de(R);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Decodes your encoded data to tree.</span></span><br><span class="line">    <span class="function">TreeNode* <span class="title">deserialize</span><span class="params">(<span class="built_in">string</span> data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(data ==<span class="string">""</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function"><span class="built_in">istringstream</span> <span class="title">iss</span><span class="params">(data)</span></span>;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; num(<span class="built_in">std</span>::istream_iterator&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;&#123;iss&#125;,<span class="built_in">std</span>::istream_iterator&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;());</span><br><span class="line">        TreeNode* res = helper_de(num);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>While the helper_de for deserialize is more complicated than serialization, and it should be TreeNode* type to recursively construct the tree.<br><code>Conclusion for solvement:</code></p>
+<ol>
+<li>transfer of string to vector</li>
+<li>condition judgement for string vector both at the beginning and after the value assignment.</li>
+<li>find the values for left child tree and right child tree.</li>
+<li>recursively construct them.</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/10/449_Serialize and Deserialize BST/" data-id="cjobpmlm50009s3n225vzq630" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/12/25. Reverse Nodes in k-Group/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">25. Reverse Nodes in k-Group</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/LeetCode-Solutions-Analysis/">LeetCode Solutions & Analysis</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BackTracking/">BackTracking</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/">Recursion</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BackTracking/" style="font-size: 10px;">BackTracking</a> <a href="/tags/Linked-List/" style="font-size: 15px;">Linked List</a> <a href="/tags/Recursion/" style="font-size: 20px;">Recursion</a> <a href="/tags/Search/" style="font-size: 15px;">Search</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/10/449_Serialize and Deserialize BST/">449. Serialize and Deserialize BST</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/12/25. Reverse Nodes in k-Group/">25. Reverse Nodes in k-Group</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/09/69-sqrt-x/">69.sqrt(x)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/07/51-N-Queens/">51. N-Queens</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/07/215-Kth-Largest-Element-in-an-Array/">215. Kth Largest Element in an Array</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Ava_夏持之<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
